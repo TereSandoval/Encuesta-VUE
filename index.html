@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Encuesta de Cocina</title>
+    <link rel="stylesheet" href="./CSS/estilo.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <header>
+        <h1>Encuesta</h1>
+        <h1>¿Te gusta cocinar?</h1>
+    </header>
+    <section id="app">
+        <label>¿Te gusta cocinar?</label>
+        <button @click="respuesta = 'si'">Sí</button>
+        <button @click="respuesta = 'no'">No</button>
+
+        <p v-if="respuesta === 'no'"><b>Gracias por responder!</b></p>
+
+        <div v-if="respuesta === 'si'">
+            <h2>Preguntas</h2>
+            <hr/>
+            <label>¿Cuántos años llevas cocinando?</label>
+            <input type="number" v-model="aniosCocinando" min="0"><br><br>
+
+            <label>¿Cuáles son tus platillos favoritos?</label><br>
+            <input type="text" v-model="nuevoPlatillo" placeholder="Nombre del platillo">
+            <button @click="agregarPlatillo">Agregar</button><br>
+            
+            <ul>
+                <li v-for="(platillo, index) in platillos" :key="index">{{ platillo }}</li>
+            </ul>
+
+            <label>Cuenta tu experiencia cocinando</label><br>
+            <textarea v-model="experiencia" rows="5" cols="30"></textarea><br>
+
+            <button @click="mostrarResumen">Mostrar Resumen</button>
+            <div v-if="mostrarDatos">
+                <h3>Resumen de tus respuestas:</h3>
+                <p>Años cocinando: {{ aniosCocinando }}</p>
+                <p>Platillos favoritos:</p>
+                <ul>
+                    <li v-for="(platillo, index) in platillos" :key="index">{{ platillo }}</li>
+                </ul>
+                <p>Tu experiencia: {{ experiencia }}</p>
+            </div>
+        </div>
+    </section>
+    <script src="./JS/script.js"></script>
+</body>
+</html>
